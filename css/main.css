@@ -1,0 +1,291 @@
+.book {
+  transition: opacity 0.4s 0.2s;
+}
+p{
+  margin-top: 8vw;
+  text-align: center;
+  font-size: 5vw;
+  color: #000000;
+}
+.page {
+  width: 30vw;
+  height: 44vw;
+  background-color: #111111;
+  float: left;
+  margin-bottom: 0.5em;
+  background: left top no-repeat;
+  background-size: cover;
+}
+.page:nth-child(even) {
+  clear: both;
+}
+
+/* For Mobile */
+@media screen and (max-width: 540px) {
+  .book {
+    perspective: 250vw;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+.book .pages {
+  width: 100vw;
+  height: 70vw;
+  position: relative;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  border-radius: 4px;
+  /*box-shadow: 0 0 0 1px #e3dfd8;*/
+}
+
+.book .page {
+  float: none;
+  clear: none;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  width: 50vw;
+  height: 70vw;
+  transform-origin: 0 0;
+  transition: transform 1.4s;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  user-select: none;
+  background-color: #f0f0f0;
+}
+
+@media only screen and (min-width: 768px) {
+  .book {
+    perspective: 250vw;
+  }
+
+  .book .pages {
+    width: 80vw;
+    height: 40vw;
+    position: relative;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    border-radius: 4px;
+    /*box-shadow: 0 0 0 1px #e3dfd8;*/
+  }
+
+  .book .page {
+    float: none;
+    clear: none;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 40vw;
+    height: 40vw;
+    transform-origin: 0 0;
+    transition: transform 1.4s;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    user-select: none;
+    background-color: #f0f0f0;
+  }
+}
+.book .page:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.7s;
+  z-index: 2;
+}
+.book .page:nth-child(odd) {
+  pointer-events: all;
+  transform: rotateY(0deg);
+  right: 0;
+  border-radius: 0 4px 4px 0;
+  background-image: linear-gradient(to right, rgba(0,0,0,.15) 0%, rgba(0,0,0,0) 10%);
+}
+.book .page:nth-child(odd):hover {
+  transform: rotateY(-15deg);
+}
+.book .page:nth-child(odd):hover:before {
+  background: rgba(0, 0, 0, 0.03);
+}
+.book .page:nth-child(odd):before {
+  background: rgba(0, 0, 0, 0);
+}
+.book .page:nth-child(even) {
+  pointer-events: none;
+  transform: rotateY(180deg);
+  transform-origin: 100% 0;
+  left: 0;
+  border-radius: 4px 0 0 4px;
+  border-color: black;
+  background-image: linear-gradient(to left, rgba(0,0,0,.12) 0%, rgba(0,0,0,0) 10%);
+}
+.book .page:nth-child(even):before {
+  background: rgba(0, 0, 0, 0.2);
+}
+.book .page.grabbing {
+  transition: none;
+}
+.book .page.flipped:nth-child(odd) {
+  pointer-events: none;
+  transform: rotateY(-180deg);
+}
+.book .page.flipped:nth-child(odd):before {
+  background: rgba(0, 0, 0, 0.2);
+}
+.book .page.flipped:nth-child(even) {
+  pointer-events: all;
+  transform: rotateY(0deg);
+}
+.book .page.flipped:nth-child(even):hover {
+  transform: rotateY(15deg);
+}
+.book .page.flipped:nth-child(even):hover:before {
+  background: rgba(0, 0, 0, 0.03);
+}
+.book .page.flipped:nth-child(even):before {
+  background: rgba(0, 0, 0, 0);
+}
+*,
+* :before,
+*:after {
+  box-sizing: border-box;
+}
+html,
+body {
+  /*font-family: 'Lovers Quarrel', cursive;*/
+  background: #333;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+html {
+  height: 100%;
+}
+body {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  line-height: 1.5em;
+  background-color: #330066;
+}
+.page:nth-child(odd){
+  background-position: right top;
+}
+
+.cloud{
+  background-color: white;
+  height: 50px;
+  width: 200px;
+  border-radius: 50px;
+  position: absolute;
+  opacity: 0.1;
+}
+.cloud:before {
+  position: absolute;
+  content: "";
+  height: 100px;
+  width: 100px;
+  background-color: white;
+  border-radius: 50%;
+  bottom: 25px;
+  left: 80px;
+}
+
+.cloud:after {
+  position: absolute;
+  content: "";
+  height: 80px;
+  width: 80px;
+  background-color: white;
+  border-radius: 50%;
+  bottom: 25px;
+  left: 25px;
+}
+
+.cloud:nth-child(1){
+  top: 180px;
+  left:10px;
+}
+
+.cloud:nth-child(2){
+  top: 100px;
+  left: 210px;
+  transform: scale(0.8);
+}
+
+.cloud:nth-child(3){
+  top: 300px;
+  left: 150px;
+  transform: scale(0.8);
+}
+
+.cloud:nth-child(4){
+  top: 560px;
+  left: 100px;
+  transform: scale(1.2);
+}
+
+.button-cls{
+  position: fixed;
+  bottom: 2%;
+  border-radius: 10px;
+  width: 46%;
+  height: 5%;
+  color: #f0f0f0;
+}
+
+.yes {
+  border: 3px solid #73AD21;
+  background-color: #73AD21;
+  right: 2%;
+}
+
+.no {
+  border: 3px solid Tomato;
+  background-color: Tomato;
+  left: 2%;
+}
+
+.circle{
+  height: 65%;
+  width: 85%;
+  display: inline-block;
+  background-color: #f7174c;
+  border-radius: 50%;
+  position: absolute;
+  top:17%;
+  right:7%;
+}
+
+.square {
+  right: 17%;
+  top: 24%;
+  height: 51%;
+  width: 68%;
+  background-color: burlywood;
+  position: inherit;
+}
+
+.triangle {
+  /* THIS IS THE MAGIC: using the directional keywords instead
+     of an angle in the linear gradient property*/
+  background-image: linear-gradient(to right top, green 0%, green 50%, transparent 50%);
+  position: absolute;
+  width: 70%;
+  height: 50%;
+  top: 25%;
+  left: 37%;
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
