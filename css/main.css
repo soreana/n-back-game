@@ -247,6 +247,22 @@ body {
   right: 2%;
 }
 
+.restart {
+  border: 3px solid lightslategray;
+  background-color: lightslategray;
+  border-radius: 40%;
+  top: 2%;
+  width: 10%;
+  height: 5%;
+  left: 2%;
+}
+
+@media only screen and (min-width: 768px) {
+  .restart{
+    width: 5%;
+  }
+}
+
 .no {
   border: 3px solid Tomato;
   background-color: Tomato;
