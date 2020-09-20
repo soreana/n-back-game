@@ -482,10 +482,10 @@ body {
 
 @media only screen and (min-width: 768px) {
   .circle{
-    height: 30vh;
-    width: 30vh;
-    top:6vh;
-    right:5vw;
+    height: 28vw;
+    width: 28vw;
+    top:8vh;
+    right:6vw;
     display: inline-block;
     background-color: #f7174c;
     border-radius: 50%;
@@ -493,10 +493,10 @@ body {
   }
 
   .square {
-    height: 25vh;
-    width: 25vh;
-    top: 8vh;
-    right: 8vw;
+    height: 26vw;
+    width: 26vw;
+    top: 10vh;
+    right: 9vh;
     background-color: burlywood;
     position: inherit;
   }
@@ -506,10 +506,10 @@ body {
        of an angle in the linear gradient property*/
     background-image: linear-gradient(to right top, green 0%, green 50%, transparent 50%);
     position: absolute;
-    width: 25vh;
-    height: 25vh;
-    top: 40%;
-    left: 25%;
+    width: 25vw;
+    height: 25vw;
+    top: 35%;
+    left: 20%;
     -webkit-transform: rotate(135deg);
     -moz-transform: rotate(45deg);
     -o-transform: rotate(45deg);
