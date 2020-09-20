@@ -379,9 +379,15 @@ body {
   direction: rtl;
   font-size: 4vh;
   top: 2%;
-  right: 12%;
   color: #f0f0f0;
 }
+
+@media only screen and (min-width: 768px) {
+  .scoreContainer p{
+    right: 12%;
+  }
+}
+
 
 .yes {
   border: 3px solid #73AD21;

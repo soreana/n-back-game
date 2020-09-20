@@ -5,7 +5,7 @@ class GameState {
   }
 
   scoreUp(){
-    this.score += 10;
+    this.score ++;
     this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
   }
 
@@ -126,9 +126,12 @@ function startGame(){
   fadeInButtons();
 }
 
-function userAction () {
+function userAction (answer) {
+  console.log(answer);
   book.flipPage();
-  // todo check user input
-  gameState.scoreUp();
+  if ((book.currentShape === book.previousShape && answer === "yes")
+      ||(book.currentShape !== book.previousShape && answer === "no")){
+    gameState.scoreUp();
+  }
 }
 
