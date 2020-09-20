@@ -1,5 +1,3 @@
-let pages = document.getElementsByClassName('page');
-
 class GameState {
   constructor(){
     this.started = false;
@@ -19,14 +17,12 @@ class Book {
     this.pages = document.getElementsByClassName('page');
     this.shapes = ["circle", "triangle", "square"];
     this.currentPage = 0;
+    this.currentShape = null;
+    this.previousShape = null;
 
-    for(let i = 0; i < this.pages.length; i++)
+    for(let i = 0; i < this.pages.length; i+=2)
     {
-      let page = this.pages[i];
-      if (i % 2 === 0)
-      {
-        page.style.zIndex = (this.pages.length - i).toString();
-      }
+      this.pages[i].style.zIndex = (this.pages.length - i).toString();
     }
   }
 
@@ -64,6 +60,16 @@ class Book {
   }
 
   backToFirsPage() {
+    for (let i = this.pages.length-1; i >= 0 ; i --) {
+      this.pages[i].classList.remove('flipped');
+    }
+
+    // remove all pages
+    setTimeout(function (){
+      for (let i = this.pages.length -1 ; i > 0 ; i--)
+        this.pages[i].remove();
+      book.generateNextPage();
+    }, 1000);
     this.currentPage = 0;
   }
 }
@@ -71,21 +77,8 @@ class Book {
 const gameState = new GameState();
 const book = new Book();
 
-let current_shape = null;
-let previous_shape = null;
 
 function restartGame() {
-  for (let i = pages.length-1; i >= 0 ; i --) {
-    pages[i].classList.remove('flipped');
-  }
-
-  // remove all pages
-  setTimeout(function (){
-    for (var i = pages.length -1 ; i > 0 ; i--)
-      pages[i].remove();
-    book.generateNextPage();
-  }, 1000);
-
   book.backToFirsPage();
   // todo fade out buttons
 }
