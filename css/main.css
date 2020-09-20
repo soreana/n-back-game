@@ -363,10 +363,36 @@ body {
   color: #f0f0f0;
 }
 
+.scoreContainer{
+  position: fixed;
+  direction: rtl;
+  font-size: 4vh;
+  top: 2%;
+  right: 2%;
+  width: 20%;
+  color: #f0f0f0;
+}
+
+.scoreContainer p{
+  margin-top: 0;
+  position: fixed;
+  direction: rtl;
+  font-size: 4vh;
+  top: 2%;
+  right: 12%;
+  color: #f0f0f0;
+}
+
 .yes {
   border: 3px solid #73AD21;
   background-color: #73AD21;
   right: 2%;
+}
+
+.no {
+  border: 3px solid Tomato;
+  background-color: Tomato;
+  left: 2%;
 }
 
 .restart {
@@ -385,11 +411,7 @@ body {
   }
 }
 
-.no {
-  border: 3px solid Tomato;
-  background-color: Tomato;
-  left: 2%;
-}
+
 
 .circle{
   height: 65%;

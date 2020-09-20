@@ -1,16 +1,27 @@
 class GameState {
   constructor(){
-    this.started = false;
+    this.score = 0;
+    this.scoreHTML = document.getElementById("score");
+  }
+
+  scoreUp(){
+    this.score += 10;
+    this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
   }
 
   reset(){
-    this.started = false;
-  }
-
-  start(){
-    this.started = true;
+    this.score = 0;
+    this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
   }
 }
+
+const id = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+
+String.prototype.toPersianDigits = function () {
+  return this.replace(/[0-9]/g, function (w) {
+    return id[+w];
+  });
+};
 
 class Book {
   constructor() {
@@ -83,7 +94,8 @@ const book = new Book();
 
 function restartGame() {
   book.backToFirsPage();
-  fadeOutButtons()
+  gameState.reset();
+  fadeOutButtons();
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -116,5 +128,7 @@ function startGame(){
 
 function userAction () {
   book.flipPage();
+  // todo check user input
+  gameState.scoreUp();
 }
 
