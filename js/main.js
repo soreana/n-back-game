@@ -1,28 +1,98 @@
-var pages = document.getElementsByClassName('page');
-for(var i = 0; i < pages.length; i++)
-{
-  var page = pages[i];
-  if (i % 2 === 0)
-  {
-    page.style.zIndex = (pages.length - i);
+let pages = document.getElementsByClassName('page');
+
+class GameState {
+  constructor(){
+    this.started = false;
+  }
+
+  reset(){
+    this.started = false;
+  }
+
+  start(){
+    this.started = true;
   }
 }
 
+class Book {
+  constructor() {
+    this.pages = document.getElementsByClassName('page');
+    this.shapes = ["circle", "triangle", "square"];
+    this.currentPage = 0;
+
+    for(let i = 0; i < this.pages.length; i++)
+    {
+      let page = this.pages[i];
+      if (i % 2 === 0)
+      {
+        page.style.zIndex = (this.pages.length - i).toString();
+      }
+    }
+  }
+
+  generateNextPage(){
+    let firstPage = this.generateEmptyPage();
+    let secondPage = this.generateEmptyPage();
+    secondPage.style.zIndex = (-1 * this.currentPage).toString();
+    let shape = this.randomShape();
+    secondPage.appendChild(shape);
+
+    let element = document.getElementById('pages');
+    element.appendChild(firstPage);
+    element.appendChild(secondPage);
+  }
+
+  randomShape(){
+    let shapeTag = document.createElement("div");
+    let shapeName = Math.floor(Math.random() * this.shapes.length);
+    shapeTag.classList.add(this.shapes[shapeName]);
+
+    return shapeTag;
+  }
+
+  generateEmptyPage(){
+    let emptyPage = document.createElement("div");
+    emptyPage.classList.add("page");
+    return emptyPage;
+  }
+
+  flipPage(){
+    this.pages[this.currentPage].classList.add('flipped');
+    this.pages[this.currentPage].nextElementSibling.classList.add('flipped');
+    this.currentPage +=2;
+    this.generateNextPage();
+  }
+
+  backToFirsPage() {
+    this.currentPage = 0;
+  }
+}
+
+const gameState = new GameState();
+const book = new Book();
+
+let current_shape = null;
+let previous_shape = null;
+
 function restartGame() {
-  for (var i = pages.length-1; i >= 0 ; i --) {
+  for (let i = pages.length-1; i >= 0 ; i --) {
     pages[i].classList.remove('flipped');
   }
 
   // remove all pages
   setTimeout(function (){
-    for (var i = pages.length -1 ; i > 1 ; i--)
+    for (var i = pages.length -1 ; i > 0 ; i--)
       pages[i].remove();
+    book.generateNextPage();
   }, 1000);
+
+  book.backToFirsPage();
+  // todo fade out buttons
 }
 
 document.addEventListener('DOMContentLoaded', function(){
-  generateNextPage();
-  setTimeout(startGame, 1000);
+  book.generateNextPage();
+  // setTimeout(startGame, 1000);
   // for(var i = 0; i < pages.length; i++)
   // {
   //   Or var page = pages[i];
@@ -42,61 +112,21 @@ document.addEventListener('DOMContentLoaded', function(){
   // }
 })
 
-const shapes = ["circle", "triangle", "square"];
-let gameModeEnabled = false;
-let current_shape = null;
-let previous_shape = null;
 
-let current_page = 0;
+function fadeInButtons(){
+  let buttons = document.getElementsByClassName('button-cls');
+  for (let button of buttons){
+    button.classList.add("fade-in");
+    button.style.visibility = "visible";
+  }
+}
 
 function startGame(){
-  pages[current_page].classList.add('flipped');
-  pages[current_page].nextElementSibling.classList.add('flipped');
-  current_page +=2;
-  gameModeEnabled = true;
-  generateNextPage();
+  book.flipPage();
+  fadeInButtons();
 }
 
-function removeLastPage() {
-
+function userAction () {
+  book.flipPage();
 }
 
-function flipBackward(){
-  removeLastPage();
-}
-
-function flip_page () {
-  if (! gameModeEnabled ){
-    return;
-  }
-  pages[current_page].classList.add('flipped');
-  pages[current_page].nextElementSibling.classList.add('flipped');
-  current_page +=2;
-  generateNextPage();
-}
-
-function generateEmptyPage(){
-  let emptyPage = document.createElement("div");
-  emptyPage.classList.add("page");
-  return emptyPage;
-}
-
-function generateShape(){
-  let shapeTag = document.createElement("div");
-  let shape = Math.floor(Math.random() * shapes.length);
-  shapeTag.classList.add(shapes[shape]);
-
-  return shapeTag;
-}
-
-function generateNextPage(){
-  let firstPage = generateEmptyPage();
-  let secondPage = generateEmptyPage();
-  secondPage.style.zIndex = -1 * current_page;
-  let shape = generateShape();
-  secondPage.appendChild(shape);
-
-  let element = document.getElementById("pages");
-  element.appendChild(firstPage)
-  element.appendChild(secondPage)
-}
