@@ -19,6 +19,7 @@ class Book {
     this.currentPage = 0;
     this.currentShape = null;
     this.previousShape = null;
+    this.nextShap = null;
 
     for(let i = 0; i < this.pages.length; i+=2)
     {
@@ -40,8 +41,8 @@ class Book {
 
   randomShape(){
     let shapeTag = document.createElement("div");
-    let shapeName = Math.floor(Math.random() * this.shapes.length);
-    shapeTag.classList.add(this.shapes[shapeName]);
+    this.nextShap = Math.floor(Math.random() * this.shapes.length);
+    shapeTag.classList.add(this.shapes[this.nextShap]);
 
     return shapeTag;
   }
@@ -56,6 +57,8 @@ class Book {
     this.pages[this.currentPage].classList.add('flipped');
     this.pages[this.currentPage].nextElementSibling.classList.add('flipped');
     this.currentPage +=2;
+    this.previousShape = this.currentShape;
+    this.currentShape = this.nextShap;
     this.generateNextPage();
   }
 
