@@ -14,7 +14,7 @@ p{
   margin-top: 8vw;
   text-align: center;
   font-size: 5vw;
-  color: #000000;
+  color: #407088;
 }
 .page {
   width: 30vw;
@@ -182,7 +182,8 @@ body {
   align-items: center;
   padding: 0;
   /*line-height: 1.5em;*/
-  background-color: #330066;
+  /*background-color: #330066;*/
+  background-color: #407088;
 }
 .page:nth-child(odd){
   background-position: right top;
