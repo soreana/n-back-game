@@ -444,8 +444,6 @@ body {
   }
 }
 
-
-
 .circle{
   height: 65%;
   width: 85%;
@@ -482,3 +480,40 @@ body {
   transform: rotate(45deg);
 }
 
+@media only screen and (min-width: 768px) {
+  .circle{
+    height: 30vh;
+    width: 30vh;
+    top:6vh;
+    right:5vw;
+    display: inline-block;
+    background-color: #f7174c;
+    border-radius: 50%;
+    position: absolute;
+  }
+
+  .square {
+    height: 25vh;
+    width: 25vh;
+    top: 8vh;
+    right: 8vw;
+    background-color: burlywood;
+    position: inherit;
+  }
+
+  .triangle {
+    /* THIS IS THE MAGIC: using the directional keywords instead
+       of an angle in the linear gradient property*/
+    background-image: linear-gradient(to right top, green 0%, green 50%, transparent 50%);
+    position: absolute;
+    width: 25vh;
+    height: 25vh;
+    top: 40%;
+    left: 25%;
+    -webkit-transform: rotate(135deg);
+    -moz-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(135deg);
+  }
+}
