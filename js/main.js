@@ -8,8 +8,21 @@ for(var i = 0; i < pages.length; i++)
   }
 }
 
+function restartGame() {
+  for (var i = pages.length-1; i >= 0 ; i --) {
+    pages[i].classList.remove('flipped');
+  }
+
+  // remove all pages
+  setTimeout(function (){
+    for (var i = pages.length -1 ; i > 1 ; i--)
+      pages[i].remove();
+  }, 1000);
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   generateNextPage();
+  setTimeout(startGame, 1000);
   // for(var i = 0; i < pages.length; i++)
   // {
   //   Or var page = pages[i];
@@ -30,10 +43,32 @@ document.addEventListener('DOMContentLoaded', function(){
 })
 
 const shapes = ["circle", "triangle", "square"];
+let gameModeEnabled = false;
+let current_shape = null;
+let previous_shape = null;
 
 let current_page = 0;
 
+function startGame(){
+  pages[current_page].classList.add('flipped');
+  pages[current_page].nextElementSibling.classList.add('flipped');
+  current_page +=2;
+  gameModeEnabled = true;
+  generateNextPage();
+}
+
+function removeLastPage() {
+
+}
+
+function flipBackward(){
+  removeLastPage();
+}
+
 function flip_page () {
+  if (! gameModeEnabled ){
+    return;
+  }
   pages[current_page].classList.add('flipped');
   pages[current_page].nextElementSibling.classList.add('flipped');
   current_page +=2;
