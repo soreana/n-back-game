@@ -66,17 +66,26 @@ class Book {
   }
 
   flipPage(){
-    let page = this.pages[this.pages.length-4];
+    const page = this.pages[this.pages.length - 3];
+
+    // Flip page
     page.classList.add('flipped');
     page.nextElementSibling.classList.add('flipped');
+
+    // Shift shapes
     this.previousShape = this.currentShape;
     this.currentShape = this.nextShap;
-      page.addEventListener('transitionend', function (event) {
-        setTimeout(function (){
+
+    // Remove page after transition
+    page.addEventListener('transitionend', function (event) {
+      setTimeout(function () {
+        if(page.nextElementSibling !== null) {
           page.nextElementSibling.remove();
           page.remove();
-        },100)
-      }, false);
+        }
+      }, 1000)
+    }, false);
+
     this.generateNextPage();
   }
 
@@ -91,7 +100,6 @@ class Book {
         this.pages[i].remove();
       book.generateNextPage();
     }, 1000);
-    this.currentPage = 0;
   }
 
   flipCover() {
@@ -138,17 +146,15 @@ function fadeInButtons(){
 }
 
 function startGame(){
-  // book.flipPage();
   book.flipCover();
   fadeInButtons();
 }
 
 function userAction (answer) {
-  console.log(answer);
-  book.flipPage();
   if ((book.currentShape === book.previousShape && answer === "yes")
       ||(book.currentShape !== book.previousShape && answer === "no")){
     gameState.scoreUp();
   }
+  book.flipPage();
 }
 
