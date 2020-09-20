@@ -27,7 +27,7 @@ class Book {
   constructor() {
     this.pages = document.getElementsByClassName('page');
     this.shapes = ["circle", "triangle", "square"];
-    this.currentPage = 0;
+    this.zIndex = 0;
     this.currentShape = null;
     this.previousShape = null;
     this.nextShap = null;
@@ -41,7 +41,8 @@ class Book {
   generateNextPage(){
     let firstPage = this.generateEmptyPage();
     let secondPage = this.generateEmptyPage();
-    secondPage.style.zIndex = (-1 * this.currentPage).toString();
+    secondPage.style.zIndex = this.zIndex.toString();
+    this.zIndex --;
     let shape = this.randomShape();
     secondPage.appendChild(shape);
 
@@ -65,11 +66,17 @@ class Book {
   }
 
   flipPage(){
-    this.pages[this.currentPage].classList.add('flipped');
-    this.pages[this.currentPage].nextElementSibling.classList.add('flipped');
-    this.currentPage +=2;
+    let page = this.pages[this.pages.length-4];
+    page.classList.add('flipped');
+    page.nextElementSibling.classList.add('flipped');
     this.previousShape = this.currentShape;
     this.currentShape = this.nextShap;
+      page.addEventListener('transitionend', function (event) {
+        setTimeout(function (){
+          page.nextElementSibling.remove();
+          page.remove();
+        },100)
+      }, false);
     this.generateNextPage();
   }
 
@@ -85,6 +92,15 @@ class Book {
       book.generateNextPage();
     }, 1000);
     this.currentPage = 0;
+  }
+
+  flipCover() {
+    let page = this.pages[0];
+    page.classList.add('flipped');
+    page.nextElementSibling.classList.add('flipped');
+    this.previousShape = this.currentShape;
+    this.currentShape = this.nextShap;
+    this.generateNextPage();
   }
 }
 
@@ -122,7 +138,8 @@ function fadeInButtons(){
 }
 
 function startGame(){
-  book.flipPage();
+  // book.flipPage();
+  book.flipCover();
   fadeInButtons();
 }
 
