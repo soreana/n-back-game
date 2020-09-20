@@ -83,31 +83,23 @@ const book = new Book();
 
 function restartGame() {
   book.backToFirsPage();
-  // todo fade out buttons
+  fadeOutButtons()
 }
 
 document.addEventListener('DOMContentLoaded', function(){
   book.generateNextPage();
-  // setTimeout(startGame, 1000);
-  // for(var i = 0; i < pages.length; i++)
-  // {
-  //   Or var page = pages[i];
-  //   pages[i].pageNum = i + 1;
-  //   pages[i].onclick=function() {
-  //     if (this.pageNum % 2 === 0)
-  //     {
-  //       this.classList.remove('flipped');
-  //       this.previousElementSibling.classList.remove('flipped');
-  //     }
-  //     else
-  //     {
-  //       this.classList.add('flipped');
-  //       this.nextElementSibling.classList.add('flipped');
-  //     }
-  //   }
-  // }
 })
 
+
+function fadeOutButtons(){
+  let buttons = document.getElementsByClassName('button-cls');
+  for (let button of buttons){
+    button.classList.add("fade-out");
+    button.addEventListener('webkitAnimationEnd',function( event ) {
+      button.style.visibility = 'hidden';
+      } , false);
+  }
+}
 
 function fadeInButtons(){
   let buttons = document.getElementsByClassName('button-cls');

@@ -11,6 +11,7 @@
 /* source: https://medium.com/cloud-native-the-gathering/how-to-use-css-to-fade-in-and-fade-out-html-text-and-pictures-f45c11364f08*/
 
 .fade-in {
+  visibility: visible;
   animation: fadeIn ease 0.8s;
   -webkit-animation: fadeIn ease 0.8s;
   -moz-animation: fadeIn ease 0.8s;
@@ -59,6 +60,59 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+.fade-out {
+  visibility: hidden;
+  animation: fadeOut ease 0.8s;
+  -webkit-animation: fadeOut ease 0.8s;
+  -moz-animation: fadeOut ease 0.8s;
+  -o-animation: fadeOut ease 0.8s;
+  -ms-animation: fadeOut ease 0.8s;
+}
+@keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-moz-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-o-keyframes fadeOut {
+  0% {
+    opacity:1;
+  }
+  100% {
+    opacity:0;
+  }
+}
+
+@-ms-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
