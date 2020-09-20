@@ -7,6 +7,63 @@
   font-weight: normal;
 }
 
+/****************************** start fade-in css ******************************/
+/* source: https://medium.com/cloud-native-the-gathering/how-to-use-css-to-fade-in-and-fade-out-html-text-and-pictures-f45c11364f08*/
+
+.fade-in {
+  animation: fadeIn ease 0.8s;
+  -webkit-animation: fadeIn ease 0.8s;
+  -moz-animation: fadeIn ease 0.8s;
+  -o-animation: fadeIn ease 0.8s;
+  -ms-animation: fadeIn ease 0.8s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-moz-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-o-keyframes fadeIn {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
+
+@-ms-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/****************************** stop fade-in css ******************************/
+
 .book {
   transition: opacity 0.4s 0.2s;
 }
@@ -248,6 +305,7 @@ body {
   border-radius: 10px;
   width: 46%;
   height: 5%;
+  visibility: hidden;
   color: #f0f0f0;
 }
 
@@ -260,16 +318,16 @@ body {
 .restart {
   border: 3px solid lightslategray;
   background-color: lightslategray;
-  border-radius: 40%;
+  border-radius: 10px;
   top: 2%;
-  width: 10%;
+  width: 40%;
   height: 5%;
   left: 2%;
 }
 
 @media only screen and (min-width: 768px) {
   .restart{
-    width: 5%;
+    width: 15%;
   }
 }
 
