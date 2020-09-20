@@ -378,6 +378,7 @@ body {
   position: fixed;
   direction: rtl;
   font-size: 4vh;
+  right: 20%;
   top: 2%;
   color: #f0f0f0;
 }
