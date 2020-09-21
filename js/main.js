@@ -1,3 +1,20 @@
+function whichTransitionEvent(){
+  const el = document.createElement('fakeelement');
+  const transitions = {
+    'WebkitTransition': 'webkitTransitionEnd',
+    'MozTransition': 'transitionend',
+    'MSTransition': 'msTransitionEnd',
+    'OTransition': 'oTransitionEnd',
+    'transition': 'transitionEnd'
+  };
+
+  for(let t in transitions){
+    if( el.style[t] !== undefined ){
+      return transitions[t];
+    }
+  }
+}
+
 class GameState {
   constructor(){
     this.score = 0;
@@ -117,12 +134,15 @@ class Book {
     this.currentShape = this.nextShap;
 
     // Remove page after transition
+
     page.addEventListener('transitionend', function (event) {
+      console.log("here");
       if (gameState.tutorial){
         document.getElementById("secondPopup").classList.add("show");
         gameState.tutorial = false;
       }
-      if(event.elapsedTime === gameState.gameSpeed * 2 || event.elapsedTime === (gameState.gameSpeed + 0.1) * 2){
+      let elapsedTime = Number((event.elapsedTime).toFixed(1));
+      if(elapsedTime === gameState.gameSpeed * 2 || elapsedTime === (gameState.gameSpeed + 0.1) * 2){
         gameState.enableClick();
       }
       setTimeout(function () {
@@ -131,7 +151,7 @@ class Book {
           page.remove();
         }
       }, 1000)
-    }, false);
+    });
 
     this.generateNextPage();
   }
@@ -166,7 +186,7 @@ class Book {
         if(gameState.tutorial){
           document.getElementById("firstPopup").classList.add("show");
         }
-      }, false);
+      });
     }
 
     this.previousShape = this.currentShape;
