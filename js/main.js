@@ -1,6 +1,7 @@
 class GameState {
   constructor(){
     this.score = 0;
+    this.clickEnabled = true;
     this.scoreHTML = document.getElementById("score");
   }
 
@@ -11,7 +12,16 @@ class GameState {
 
   reset(){
     this.score = 0;
+    this.clickEnabled = true;
     this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
+  }
+
+  enableClick(){
+    this.clickEnabled = true;
+  }
+
+  disableClick(){
+    this.clickEnabled = false;
   }
 }
 
@@ -78,6 +88,9 @@ class Book {
 
     // Remove page after transition
     page.addEventListener('transitionend', function (event) {
+      if(event.elapsedTime === 1.4){
+        gameState.enableClick();
+      }
       setTimeout(function () {
         if(page.nextElementSibling !== null) {
           page.nextElementSibling.remove();
@@ -151,6 +164,10 @@ function startGame(){
 }
 
 function userAction (answer) {
+  if (!gameState.clickEnabled){
+      return
+  }
+  gameState.disableClick();
   if ((book.currentShape === book.previousShape && answer === "yes")
       ||(book.currentShape !== book.previousShape && answer === "no")){
     gameState.scoreUp();
