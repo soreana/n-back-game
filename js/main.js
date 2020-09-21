@@ -4,6 +4,7 @@ class GameState {
     this.clickEnabled = true;
     this.speedUpdateTreshHold = 3;
     this.gameSpeed = 0.7;
+    this.tutorial = true;
     this.scoreHTML = document.getElementById("score");
   }
 
@@ -15,6 +16,8 @@ class GameState {
   reset(){
     this.score = 0;
     this.clickEnabled = true;
+    this.speedUpdateTreshHold = 3;
+    this.gameSpeed = 0.7;
     this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
   }
 
@@ -82,6 +85,18 @@ class Book {
     return shapeTag;
   }
 
+  generatePopup(message, id){
+    let popup = document.createElement("div");
+    popup.classList.add("popup");
+    let popupText = document.createElement("span");
+    popupText.innerHTML = message;
+    popupText.classList.add("popuptext");
+    popupText.id = id;
+    popup.appendChild(popupText);
+
+    return popup;
+  }
+
   generateEmptyPage(){
     let emptyPage = document.createElement("div");
     emptyPage.classList.add("page");
@@ -103,6 +118,10 @@ class Book {
 
     // Remove page after transition
     page.addEventListener('transitionend', function (event) {
+      if (gameState.tutorial){
+        document.getElementById("secondPopup").classList.add("show");
+        gameState.tutorial = false;
+      }
       if(event.elapsedTime === gameState.gameSpeed * 2 || event.elapsedTime === (gameState.gameSpeed + 0.1) * 2){
         gameState.enableClick();
       }
@@ -117,10 +136,14 @@ class Book {
     this.generateNextPage();
   }
 
-  backToFirsPage() {
+  backToFirstPage() {
     for (let i = this.pages.length-1; i >= 0 ; i --) {
       this.pages[i].classList.remove('flipped');
     }
+
+    let page = this.pages[0];
+    page.style.transition = "";
+    page.nextElementSibling.style.transition = "";
 
     // remove all pages
     setTimeout(function (){
@@ -134,9 +157,26 @@ class Book {
     let page = this.pages[0];
     page.classList.add('flipped');
     page.nextElementSibling.classList.add('flipped');
+
+    if(gameState.tutorial) {
+      let popup = this.generatePopup("این شکل را به خاطر بسپارید و روی یکی از دکمه‌های پایین صفحه کلیک کنید", "firstPopup");
+      this.pages[2].appendChild(popup);
+
+      page.addEventListener('transitionend', function (event) {
+        if(gameState.tutorial){
+          document.getElementById("firstPopup").classList.add("show");
+        }
+      }, false);
+    }
+
     this.previousShape = this.currentShape;
     this.currentShape = this.nextShap;
     this.generateNextPage();
+
+    if(gameState.tutorial) {
+      let secondPopup = this.generatePopup("آیا این شکل با شکل صفحه قبل یکسان است؟ جواب را با کلید‌های پایین مشخص کنید", "secondPopup");
+      this.pages[4].appendChild(secondPopup);
+    }
   }
 }
 
@@ -145,7 +185,7 @@ const book = new Book();
 
 
 function restartGame() {
-  book.backToFirsPage();
+  book.backToFirstPage();
   gameState.reset();
   fadeOutButtons();
 }
@@ -182,6 +222,14 @@ function userAction (answer) {
   if (!gameState.clickEnabled){
       return
   }
+
+  console.log(gameState.tutorial);
+
+  if(gameState.tutorial){
+    document.getElementById("firstPopup").classList.remove("show");
+    document.getElementById("secondPopup").classList.remove("show");
+  }
+
   gameState.disableClick();
   if ((book.currentShape === book.previousShape && answer === "yes")
       ||(book.currentShape !== book.previousShape && answer === "no")){
