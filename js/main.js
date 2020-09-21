@@ -2,6 +2,8 @@ class GameState {
   constructor(){
     this.score = 0;
     this.clickEnabled = true;
+    this.speedUpdateTreshHold = 3;
+    this.gameSpeed = 0.7;
     this.scoreHTML = document.getElementById("score");
   }
 
@@ -22,6 +24,17 @@ class GameState {
 
   disableClick(){
     this.clickEnabled = false;
+  }
+
+  increaseSpeed() {
+    this.gameSpeed = this.gameSpeed - 0.1;
+  }
+
+  updateSpeed(){
+    if(this.score > this.speedUpdateTreshHold){
+        this.increaseSpeed();
+        this.speedUpdateTreshHold += 3;
+    }
   }
 }
 
@@ -75,10 +88,12 @@ class Book {
     return emptyPage;
   }
 
-  flipPage(){
+  flipPage( firstPageSpeed, secondPageSpeed ){
     const page = this.pages[this.pages.length - 3];
 
     // Flip page
+    page.style.transition = "transform " + firstPageSpeed + "s";
+    page.previousElementSibling.style.transition = "background " + secondPageSpeed + "s";
     page.classList.add('flipped');
     page.nextElementSibling.classList.add('flipped');
 
@@ -88,7 +103,7 @@ class Book {
 
     // Remove page after transition
     page.addEventListener('transitionend', function (event) {
-      if(event.elapsedTime === 1.4){
+      if(event.elapsedTime === gameState.gameSpeed * 2 || event.elapsedTime === (gameState.gameSpeed + 0.1) * 2){
         gameState.enableClick();
       }
       setTimeout(function () {
@@ -172,6 +187,8 @@ function userAction (answer) {
       ||(book.currentShape !== book.previousShape && answer === "no")){
     gameState.scoreUp();
   }
-  book.flipPage();
+  book.flipPage(gameState.gameSpeed *2 , gameState.gameSpeed);
+
+  gameState.updateSpeed();
 }
 
