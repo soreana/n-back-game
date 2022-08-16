@@ -12,6 +12,6 @@ Feel welcome to raise an issue to ask for a feature or give a feedback.
 
 1. Write a readme.
 2. Share a gif.
-3. Add support for English.
-4. Add VueJs or React support.
-5. Change the speed.
+3. Add VueJs or React support.
+4. Change the speed.
+5. Add support for Persian.
