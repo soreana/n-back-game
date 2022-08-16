@@ -179,7 +179,7 @@ class Book {
     page.nextElementSibling.classList.add('flipped');
 
     if(gameState.tutorial) {
-      let popup = this.generatePopup("این شکل را به خاطر بسپارید و روی یکی از دکمه‌های پایین صفحه کلیک کنید", "firstPopup");
+      let popup = this.generatePopup("Keep this shape in your mind, and click one of the below button.", "firstPopup");
       this.pages[2].appendChild(popup);
 
       page.addEventListener('transitionend', function (event) {
@@ -194,7 +194,7 @@ class Book {
     this.generateNextPage();
 
     if(gameState.tutorial) {
-      let secondPopup = this.generatePopup("آیا این شکل با شکل صفحه قبل یکسان است؟ جواب را با کلید‌های پایین مشخص کنید", "secondPopup");
+      let secondPopup = this.generatePopup("Is this picture the same as the previous one?", "secondPopup");
       this.pages[4].appendChild(secondPopup);
     }
   }
