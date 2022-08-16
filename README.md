@@ -1,4 +1,4 @@
-# nback-html-css
+# N-back task
 
 N-back game written in pure html, css and javascript. 🚀
 
