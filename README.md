@@ -1,4 +1,4 @@
-# N-back Cognitive game
+# N-back Cognitive Game
 
 N-back game written in pure html, css and javascript. 🚀
 
