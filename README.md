@@ -14,4 +14,6 @@ Feel welcome to raise an issue to ask for a feature or give a feedback.
 2. Share a gif.
 3. Add VueJs or React support.
 4. Change the speed.
-5. Add support for Persian.
+5. Timer
+6. Arrow Keys
+7. Add support for Persian.
