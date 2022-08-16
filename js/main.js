@@ -27,7 +27,8 @@ class GameState {
 
   scoreUp(){
     this.score ++;
-    this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
+    // this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
+    this.scoreHTML.innerHTML = this.score.toString();
   }
 
   reset(){
@@ -35,7 +36,8 @@ class GameState {
     this.clickEnabled = true;
     this.speedUpdateTreshHold = 3;
     this.gameSpeed = 0.7;
-    this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
+    // this.scoreHTML.innerHTML = this.score.toString().toPersianDigits();
+    this.scoreHTML.innerHTML = this.score.toString();
   }
 
   enableClick(){
